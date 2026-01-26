@@ -11,21 +11,12 @@
 
 1. Открыть страницу  https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager
 2. Убедиться, что URL и заголовок страницы корректны
-3. Проверить наличие всех элементов формы:
-
-- Разделы формы: Add Customer, Open Account, Customers
-- Поля ввода: First Name, Last Name, Post Code
-- Кнопка создания клиента: Add Customer
-- Выпадающие списки: Customer, Currency
-- Кнопка открытия счета: Process
-- Поле поиска клиентов: Search Customer
-- Поля таблицы пользователей: First Name, Last Name, Post Code, Account Number, Delete Customer
-- Кнопка удаления клиента: Delete
+3. Проверить наличие формы
 
 Ожидаемый результат:
 
 1. Страница загружена, URL корректный
-2. Все элементы формы отображаются
+2. Форма отображается
 
 Фактический результат:
 

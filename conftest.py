@@ -1,8 +1,8 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
 from config import DEFAULT_TIMEOUT
 
 @pytest.fixture
@@ -15,5 +15,4 @@ def browser():
 
 @pytest.fixture
 def wait(browser):
-    from selenium.webdriver.support.ui import WebDriverWait
     return WebDriverWait(browser, DEFAULT_TIMEOUT)
