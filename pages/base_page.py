@@ -3,9 +3,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from config import DEFAULT_TIMEOUT
 import allure
-from pages.locators import BankPracticeLocators
 
 class BasePage:
+
     def __init__(self, browser, url):
         self.browser = browser
         self.url = url
@@ -17,13 +17,6 @@ class BasePage:
         assert self.browser.current_url == self.url, \
             f"Expected URL {self.url}, but got {self.browser.current_url}"
         return self
-
-    @allure.step("Проверяем заголовок страницы")
-    def find_title(self):
-        expected_title = "XYZ Bank"
-        actual_title = self.browser.find_element(BankPracticeLocators.TITLE).text
-        assert actual_title == expected_title, \
-            f"Заголовок формы некорректен. Ожидалось: '{expected_title}', Получено: '{actual_title}'"
 
     @allure.step("Ожидание появления элемента")
     def wait_for_element(self, locator, timeout=DEFAULT_TIMEOUT):

@@ -4,6 +4,8 @@ class BankPracticeLocators:
 
     #основное
     TITLE = (By.CSS_SELECTOR, "strong.mainHeading")
+    FORM = (By.CSS_SELECTOR, "div.border.box.padT20.ng-scope")
+
 
     #open_account
     CUSTOMER_DROPDOWN = (By.ID, "userSelect")
