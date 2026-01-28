@@ -17,7 +17,7 @@ class AddCustomerPage(BasePage):
         return self
 
     @allure.step('Заполняем поля валидно')
-    def fill_valid_required(self):
+    def fill_fields_with_valid_data(self):
 
         self.is_element_present(
             BankPracticeLocators.FIRST_NAME_INPUT,
@@ -81,6 +81,29 @@ class AddCustomerPage(BasePage):
         table_text = table_body.text
         return post_code in table_text
 
+    @allure.step('Заполняем поля с уже существующими данными (например, Hermoine Granger E859AB)')
+    def fill_fields_with_existing_data(self):
 
+        self.is_element_present(
+            BankPracticeLocators.FIRST_NAME_INPUT,
+            BankPracticeLocators.LAST_NAME_INPUT,
+            BankPracticeLocators.POST_CODE_INPUT,
+            BankPracticeLocators.ADD_CUSTOMER_BUTTON
+        )
 
+        # данные
+        customer = {'first_name': 'Hermoine', 'last_name': 'Granger', 'post_code': 'E859AB'}
 
+        # имя
+        self.browser.find_element(*BankPracticeLocators.FIRST_NAME_INPUT).clear()
+        self.browser.find_element(*BankPracticeLocators.FIRST_NAME_INPUT).send_keys(customer['first_name'])
+
+        # фамилия
+        self.browser.find_element(*BankPracticeLocators.LAST_NAME_INPUT).clear()
+        self.browser.find_element(*BankPracticeLocators.LAST_NAME_INPUT).send_keys(customer['last_name'])
+
+        # посткод
+        self.browser.find_element(*BankPracticeLocators.POST_CODE_INPUT).clear()
+        self.browser.find_element(*BankPracticeLocators.POST_CODE_INPUT).send_keys(customer['post_code'])
+
+        return self
