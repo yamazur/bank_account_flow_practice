@@ -24,6 +24,12 @@ class BasePage:
             EC.visibility_of_element_located(locator)
         )
 
+    @allure.step("Применяем ожидание элемета к каждому локатору")
+    def is_element_present(self, *locators):
+        for locator in locators:
+            element = self.wait_for_element(locator)
+            assert element is not None, f"Element {locator} is missing"
+
     @allure.step("Ожидание кликабельности элемента и клик по элементу")
     def click(self, locator, timeout=DEFAULT_TIMEOUT):
         click_element = WebDriverWait(self.browser, timeout).until(
@@ -39,14 +45,8 @@ class BasePage:
         except TimeoutException:
             return True
 
-    @allure.step("Применяем ожидание элемета к каждому локатору")
-    def is_element_present(self, *locators):
-        for locator in locators:
-            element = self.wait_for_element(locator)
-            assert element is not None, f"Element {locator} is missing"
-
-
-
-
-
-
+    @allure.step("Ожидание появления элемента")
+    def wait_for_alert(self, timeout=DEFAULT_TIMEOUT):
+        return WebDriverWait(self.browser, timeout).until(
+            EC.alert_is_present()
+        )

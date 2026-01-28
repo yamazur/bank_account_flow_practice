@@ -16,3 +16,4 @@ def browser():
 @pytest.fixture
 def wait(browser):
     return WebDriverWait(browser, DEFAULT_TIMEOUT)
+
