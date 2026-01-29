@@ -5,19 +5,14 @@ from pages.locators import BankPracticeLocators
 
 class AddCustomerPage(BasePage):
 
-    URL = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager"
+    URL = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/addCust"
 
     def __init__(self, browser):
         super().__init__(browser, self.URL)
         self.created_customer_data = {}
 
-    @allure.step('Переходим в раздел "Add Customer"')
-    def go_to_add_customer_page(self):
-        self.wait_for_element(BankPracticeLocators.ADD_CUSTOMER_BUTTON).click()
-        return self
-
-    @allure.step('Заполняем поля валидно')
-    def fill_fields_with_valid_data(self):
+    @allure.step('Проверка элементов формы')
+    def should_be_elements_in_add_customer_page(self):
 
         self.is_element_present(
             BankPracticeLocators.FIRST_NAME_INPUT,
@@ -25,6 +20,9 @@ class AddCustomerPage(BasePage):
             BankPracticeLocators.POST_CODE_INPUT,
             BankPracticeLocators.ADD_CUSTOMER_BUTTON
         )
+
+    @allure.step('Заполняем поля валидно')
+    def fill_fields_with_valid_data(self):
 
         fake = Faker()
 
@@ -68,10 +66,15 @@ class AddCustomerPage(BasePage):
         self.wait_for_alert()
         alert = self.browser.switch_to.alert
         alert_actual_text = alert.text
-        alert_expected_text = "Customer added successfully with customer id:"
+        alert_expected_text = "Customer added successfully with customer id :"
         assert alert_expected_text in alert_actual_text, \
             f"В алерте написано: {alert_actual_text} ожидалось: {alert_expected_text}"
         alert.accept()
+        return self
+
+    @allure.step("Переходим на страницу списка клиентов")
+    def go_to_customers_page(self):
+        self.wait_for_element(BankPracticeLocators.GO_TO_CUSTOMERS_PAGE).click()
         return self
 
     @allure.step('Проверяем, что клиент появился в таблице Customers')
@@ -83,13 +86,6 @@ class AddCustomerPage(BasePage):
 
     @allure.step('Заполняем поля с уже существующими данными (например, Hermoine Granger E859AB)')
     def fill_fields_with_existing_data(self):
-
-        self.is_element_present(
-            BankPracticeLocators.FIRST_NAME_INPUT,
-            BankPracticeLocators.LAST_NAME_INPUT,
-            BankPracticeLocators.POST_CODE_INPUT,
-            BankPracticeLocators.ADD_CUSTOMER_BUTTON
-        )
 
         # данные
         customer = {'first_name': 'Hermoine', 'last_name': 'Granger', 'post_code': 'E859AB'}
@@ -106,4 +102,25 @@ class AddCustomerPage(BasePage):
         self.browser.find_element(*BankPracticeLocators.POST_CODE_INPUT).clear()
         self.browser.find_element(*BankPracticeLocators.POST_CODE_INPUT).send_keys(customer['post_code'])
 
+        return self
+
+    @allure.step('Проверяем, что высвечивается alert с текстом "Please check the details. Customer may be duplicate."')
+    def check_failed_alert(self):
+        self.wait_for_alert()
+        alert = self.browser.switch_to.alert
+        alert_actual_text = alert.text
+        alert_expected_text = "Please check the details. Customer may be duplicate."
+        assert alert_expected_text in alert_actual_text, \
+            f"В алерте написано: {alert_actual_text} ожидалось: {alert_expected_text}"
+        alert.accept()
+        return self
+
+    @allure.step('Проверяем, что клиент не появился в таблице Customers, дубликата нет')
+    def checking_the_duplicate_client(self):
+        post_code = 'E859AB'
+        table_body = self.browser.find_element(*BankPracticeLocators.TABLE_BODY)
+        table_text = table_body.text
+        count = table_text.split().count(post_code)
+        assert count <= 1, \
+            f"Post code '{post_code}' встречается {count} раз! Ожидалось не более 1."
         return self
