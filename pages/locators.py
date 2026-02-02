@@ -21,6 +21,12 @@ class BankPracticeLocators:
     #customers
     GO_TO_CUSTOMERS_PAGE = (By.XPATH, "//button[contains(text(), 'Customers')]")
     TABLE_BODY = (By.CSS_SELECTOR, "table.table tbody")
+    SEARCH_CUSTOMER_INPUT = (By.CSS_SELECTOR, "input[placeholder='Search Customer']")
+    FIRST_NAME_SORT = (By.LINK_TEXT, "First Name")
+    POST_CODE_SORT = (By.LINK_TEXT, "Post Code")
+    DELETE_BUTTON = (By.XPATH, ".//button[text()='Delete']")
+
+
 
 
 

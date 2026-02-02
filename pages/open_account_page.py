@@ -3,7 +3,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-
 from config import DEFAULT_TIMEOUT
 from pages.base_page import BasePage
 import allure
@@ -24,22 +23,18 @@ class OpenAccountPage(BasePage):
             BankPracticeLocators.CURRENCY_DROPDOWN,
             BankPracticeLocators.PROCESS_BUTTON,
         )
+        return self
 
     @allure.step("Успешный выбор из  выпадающего списка Customer")
-    def customer_filling_of_drop_down_lists(self):
+    def customer_select(self):
         select_customer = Select(self.browser.find_element(*BankPracticeLocators.CUSTOMER_DROPDOWN))
         select_customer.select_by_value('1')
         return self
 
     @allure.step("Успешный выбор из  выпадающего списка Currency")
-    def currency_filling_of_drop_down_lists(self):
+    def currency_select(self):
         select_currency = Select(self.browser.find_element(*BankPracticeLocators.CURRENCY_DROPDOWN))
         select_currency.select_by_value('Dollar')
-        return self
-
-    @allure.step('Клик по кнопке "Process"')
-    def process_click(self):
-        self.browser.find_element(*BankPracticeLocators.PROCESS_BUTTON).click()
         return self
 
     @allure.step('Проверяем, что вспывает alert с текстом "Account created successfully with account Number :" и номером счета')
@@ -48,8 +43,10 @@ class OpenAccountPage(BasePage):
         #проверяем, что это нужный алерт
         self.wait_for_alert()
         alert = self.browser.switch_to.alert
+
         alert_actual_text = alert.text
         alert_expected_text = "Account created successfully with account Number :"
+
         assert alert_expected_text in alert_actual_text, \
             f"В алерте написано: {alert_actual_text} ожидалось: {alert_expected_text}"
 
@@ -63,7 +60,8 @@ class OpenAccountPage(BasePage):
         return self
 
     @allure.step('Проверяем, что счет появился в таблице Customers')
-    def checking_new_account_number(self, new_account_number):
+    def checking_new_account_number(self):
+        new_account_number = self.new_account_number
 
         #находим строку гермионы
         hermoine_row = self.browser.find_element(By.XPATH, "//tr[td[1]='Hermoine']")
@@ -93,10 +91,3 @@ class OpenAccountPage(BasePage):
 
         except TimeoutException:
             return self
-
-
-    @allure.step("Переходим на страницу списка клиентов")
-    def go_to_customers_page(self):
-        self.wait_for_element(BankPracticeLocators.GO_TO_CUSTOMERS_PAGE).click()
-        return self
-

@@ -4,6 +4,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from config import DEFAULT_TIMEOUT
 import allure
 
+from pages.locators import BankPracticeLocators
+
+
 class BasePage:
 
     def __init__(self, browser, url):
@@ -50,3 +53,26 @@ class BasePage:
         return WebDriverWait(self.browser, timeout).until(
             EC.alert_is_present()
         )
+
+    @allure.step("Поиск клиента в табоице")
+    def is_value_present_in_table(self, locators, value: str) -> bool:
+        table = self.browser.find_element(*locators)
+        return value in table.text
+
+    @allure.step("Хэлпер для инпутов")
+    def _fill_input(self, locator, value: str):
+        element = self.browser.find_element(*locator)
+        element.clear()
+        element.send_keys(value)
+
+    @allure.step("Клик по элементу")
+    def click_element(self, locators, description=None):
+        step_name = f'Клик по {description}'
+        with allure.step(step_name):
+            self.browser.find_element(*locators).click()
+        return self
+
+    @allure.step("Переходим на страницу списка клиентов")
+    def go_to_customers_page(self):
+        self.wait_for_element(BankPracticeLocators.GO_TO_CUSTOMERS_PAGE).click()
+        return self
