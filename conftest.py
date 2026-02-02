@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from config import DEFAULT_TIMEOUT
+from pages.customers_page import CustomersPage
+
 
 @pytest.fixture
 def browser():
@@ -27,3 +29,8 @@ def customer_data(browser):
         'post_code': fake.postcode()
     }
 
+@pytest.fixture
+def customers_page(browser):
+    page = CustomersPage(browser)
+    page.open_page_and_checking_url()
+    return page

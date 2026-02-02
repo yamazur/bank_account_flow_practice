@@ -1,7 +1,5 @@
 import allure
-from allure_commons._allure import description
 from selenium.webdriver.common.by import By
-
 from pages.base_page import BasePage
 from pages.locators import BankPracticeLocators
 
@@ -35,7 +33,7 @@ class CustomersPage(BasePage):
         return value in table_body.text
 
     @allure.step('Сортировка клиентов')
-    def sort_customers_by_name(self, header_locator, column_index: int, descending: bool = False):
+    def sort_customers(self, header_locator, column_index: int, descending: bool = False):
 
         step_name = f"Сортировка колонки {column_index} по {'убыванию' if descending else 'возрастанию'}"
 
