@@ -2,6 +2,7 @@ import allure
 from pages.base_page import BasePage
 from pages.locators import BankPracticeLocators
 
+
 class MainPage(BasePage):
 
     URL = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager"

@@ -1,6 +1,7 @@
 import pytest
 from pages.locators import BankPracticeLocators
 
+
 @pytest.mark.open_account_page
 @pytest.mark.positive_test
 class TestValidOpenAccount:

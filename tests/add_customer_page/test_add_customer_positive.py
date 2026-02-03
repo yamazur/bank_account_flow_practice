@@ -6,7 +6,6 @@ from pages.locators import BankPracticeLocators
 @pytest.mark.positive_test
 class TestValidRegistration:
     def test_valid_registration(self, add_customer_page, customer_data):
-
         (add_customer_page
             .should_be_elements_in_add_customer_page()
             .fill_fields_with_valid_data(customer_data)
