@@ -7,7 +7,6 @@ class BankPracticeLocators:
     FORM = (By.CSS_SELECTOR, "div.border.box.padT20.ng-scope")
 
     # add_customer
-    GO_TO_ADD_CUSTOMER_PAGE = (By.XPATH, "//button[contains(text(), 'Add Customer')]")
     FIRST_NAME_INPUT = (By.CSS_SELECTOR, "input[placeholder='First Name']")
     LAST_NAME_INPUT = (By.CSS_SELECTOR, "input[placeholder='Last Name']")
     POST_CODE_INPUT = (By.CSS_SELECTOR, "input[placeholder='Post Code']")
@@ -19,20 +18,12 @@ class BankPracticeLocators:
     PROCESS_BUTTON = (By.XPATH, "//button[text()='Process']")
 
     #customers
-    GO_TO_CUSTOMERS_PAGE = (By.XPATH, "//button[contains(text(), 'Customers')]")
     TABLE_BODY = (By.CSS_SELECTOR, "table.table tbody")
     SEARCH_CUSTOMER_INPUT = (By.CSS_SELECTOR, "input[placeholder='Search Customer']")
     FIRST_NAME_SORT = (By.LINK_TEXT, "First Name")
     POST_CODE_SORT = (By.LINK_TEXT, "Post Code")
     DELETE_BUTTON = (By.XPATH, ".//button[text()='Delete']")
 
-
-
-
-
-
-
-
-
-
-
+    #navigation
+    GO_TO_ADD_CUSTOMER_PAGE = (By.XPATH, "//button[contains(text(), 'Add Customer')]")
+    GO_TO_CUSTOMERS_PAGE = (By.XPATH, "//button[contains(text(), 'Customers')]")

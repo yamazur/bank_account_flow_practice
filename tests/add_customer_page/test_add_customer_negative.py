@@ -1,15 +1,12 @@
 import pytest
-from pages.add_customer_page import AddCustomerPage
 from pages.locators import BankPracticeLocators
 
 
 @pytest.mark.add_customer_page
 @pytest.mark.negative_test
 class TestAddDuplicateCustomer:
-    def test_add_duplicate_customer(self, browser, customer_data):
-        page = AddCustomerPage(browser)
-
-        (page.open_page_and_checking_url()
+    def test_add_duplicate_customer(self, add_customer_page, customer_data):
+        (add_customer_page
             .fill_fields_with_existing_data()
             .click_element(BankPracticeLocators.ADD_CUSTOMER_BUTTON, description='"Add customer" button')
             .check_failed_alert()

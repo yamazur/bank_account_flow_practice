@@ -7,8 +7,10 @@ from config import DEFAULT_TIMEOUT
 from pages.base_page import BasePage
 import allure
 from pages.locators import BankPracticeLocators
+from pages.navigation_mixin import NavigationMixin
 
-class OpenAccountPage(BasePage):
+
+class OpenAccountPage(BasePage, NavigationMixin):
 
     URL = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/openAccount"
 

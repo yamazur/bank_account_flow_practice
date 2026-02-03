@@ -2,9 +2,10 @@ import allure
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from pages.locators import BankPracticeLocators
+from pages.navigation_mixin import NavigationMixin
 
 
-class CustomersPage(BasePage):
+class CustomersPage(BasePage, NavigationMixin):
 
     URL = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/list"
 
@@ -59,22 +60,12 @@ class CustomersPage(BasePage):
         row = self.browser.find_element(By.XPATH, f"//tr[td[text()='{post_code}']]")
 
         #находим кнопку delete в этой строке и кликаем
-        delete_button = row.browser.find_element(BankPracticeLocators.DELETE_BUTTON)
+        delete_button = row.find_element(*BankPracticeLocators.DELETE_BUTTON)
         delete_button.click()
 
+        #проверяем, что клиента в таблице нет
+        table_text = self.browser.find_element(*BankPracticeLocators.TABLE_BODY).text
+        assert post_code not in table_text, \
+            f"Пользователь с post_code {post_code} не удален"
+
         return self
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,8 +4,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from config import DEFAULT_TIMEOUT
 import allure
 
-from pages.locators import BankPracticeLocators
-
 
 class BasePage:
 
@@ -59,7 +57,7 @@ class BasePage:
         table = self.browser.find_element(*locators)
         return value in table.text
 
-    @allure.step("Хэлпер для инпутов")
+    @allure.step("Хэлпер для поиска и заполнения инпутов")
     def _fill_input(self, locator, value: str):
         element = self.browser.find_element(*locator)
         element.clear()
@@ -70,9 +68,4 @@ class BasePage:
         step_name = f'Клик по {description}'
         with allure.step(step_name):
             self.browser.find_element(*locators).click()
-        return self
-
-    @allure.step("Переходим на страницу списка клиентов")
-    def go_to_customers_page(self):
-        self.wait_for_element(BankPracticeLocators.GO_TO_CUSTOMERS_PAGE).click()
         return self

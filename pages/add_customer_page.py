@@ -1,8 +1,10 @@
 import allure
 from pages.base_page import BasePage
 from pages.locators import BankPracticeLocators
+from pages.navigation_mixin import NavigationMixin
 
-class AddCustomerPage(BasePage):
+
+class AddCustomerPage(BasePage, NavigationMixin):
 
     URL = "https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager/addCust"
 
