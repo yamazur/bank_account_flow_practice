@@ -1,22 +1,8 @@
-from conftest import customer_data
 from pages.locators import BankPracticeLocators
-from helpers.customer_factory import CustomerFactory
+import pytest
 
 
-class TestSearchForClients:
-    def test_search_for_clients_by_full_name(self, customers_page):
-        (customers_page
-            .should_be_elements_in_customers_page()
-            .search_customer("Hermoine")
-            .is_customer_present("Hermoine")
-         )
-
-    def test_search_for_clients_by_part_name(self, customers_page):
-        (customers_page
-            .search_customer("Herm")
-            .is_customer_present("Hermoine")
-         )
-
+@pytest.mark.positive_test
 class TestSortByClients:
     def test_sort_by_clients_by_name(self, customers_page):
         (customers_page
@@ -43,8 +29,3 @@ class TestSortByClients:
             column_index=3,
             descending=False  # проверка второго клика - на увеличение
         ))
-
-class TestDeleteCustomer:
-    def test_delete_customer(self, browser, customers_page, customer_data):
-        CustomerFactory.create_customer(browser, customer_data)
-        customers_page.go_to_customers_page().delete_customer(customer_data['post_code'])

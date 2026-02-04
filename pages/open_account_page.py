@@ -27,13 +27,13 @@ class OpenAccountPage(BasePage, NavigationMixin):
         )
         return self
 
-    @allure.step("Успешный выбор из  выпадающего списка Customer")
+    @allure.step("Выбор из выпадающего списка Customer")
     def customer_select(self):
         select_customer = Select(self.browser.find_element(*BankPracticeLocators.CUSTOMER_DROPDOWN))
         select_customer.select_by_value('1')
         return self
 
-    @allure.step("Успешный выбор из  выпадающего списка Currency")
+    @allure.step("Выбор из выпадающего списка Currency")
     def currency_select(self):
         select_currency = Select(self.browser.find_element(*BankPracticeLocators.CURRENCY_DROPDOWN))
         select_currency.select_by_value('Dollar')
