@@ -18,6 +18,11 @@ jobs:
         with:
           python-version: '3.11' #этот шаг “ставит” Python на виртуальную машину, чтобы pytest и остальные библиотеки могли работать
 
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip 
